@@ -45,7 +45,7 @@ public:
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
-    void timerCallback();
+    void timerCallback() override;
     //[/UserMethods]
 
     void paint (Graphics& g) override;

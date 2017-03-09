@@ -125,7 +125,10 @@ void NonLinearAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffe
 {
     const int totalNumInputChannels  = getTotalNumInputChannels();
     const int totalNumOutputChannels = getTotalNumOutputChannels();
-
+    
+    float input = 0.0f;
+    float output = 0.0f;
+    
     // In case we have more outputs than inputs, this code clears any output
     // channels that didn't contain input data, (because these aren't
     // guaranteed to be empty - they may contain garbage).
@@ -140,8 +143,23 @@ void NonLinearAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffe
     for (int channel = 0; channel < totalNumInputChannels; ++channel)
     {
         float* channelData = buffer.getWritePointer (channel);
-
-        // ..do something to the data...
+        
+        for (int i = 0; i < buffer.getNumSamples(); i++)
+        {
+            input = channelData[i] * 4.0f;
+            
+            if (input > 0)
+            {
+                output = 1.0f - expf(-input);
+            }
+            
+            else
+            {
+                output = - 1.0f + expf(input);
+            }
+            
+            channelData[i] = output / 2.0f ;
+        }
     }
 }
 

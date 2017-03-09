@@ -2,13 +2,15 @@
 
 <JUCERPROJECT id="itmaxd" name="NonLinear" projectType="audioplug" version="1.0.0"
               bundleIdentifier="com.yourcompany.NonLinear" includeBinaryInAppConfig="1"
-              buildVST="1" buildVST3="0" buildAU="0" buildAUv3="0" buildRTAS="0"
+              buildVST="1" buildVST3="1" buildAU="1" buildAUv3="0" buildRTAS="0"
               buildAAX="0" pluginName="NonLinear" pluginDesc="NonLinear" pluginManufacturer="yourcompany"
               pluginManufacturerCode="Manu" pluginCode="Itma" pluginChannelConfigs=""
               pluginIsSynth="0" pluginWantsMidiIn="0" pluginProducesMidiOut="0"
               pluginIsMidiEffectPlugin="0" pluginEditorRequiresKeys="0" pluginAUExportPrefix="NonLinearAU"
               pluginRTASCategory="" aaxIdentifier="com.yourcompany.NonLinear"
-              pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="4.3.0">
+              pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="4.3.0"
+              companyName="Vlady" companyWebsite="https://github.com/savovs"
+              companyEmail="vladkodmc@gmail.com">
   <MAINGROUP id="HocDY8" name="NonLinear">
     <GROUP id="{2946C7DE-CE26-C8D9-AFBF-9E5090657F55}" name="Source">
       <FILE id="uwoH4O" name="PluginProcessor.cpp" compile="1" resource="0"
