@@ -148,7 +148,34 @@ void NonLinearAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffe
         {
             input = channelData[i] * 4.0f;
             
-            output = (((sqrt(input) - input) * drive) + input) * (1 - ((drive / 4) * 0.5));
+//            output = (((sqrt(input) - input) * drive) + input) * (1 - ((drive / 4) * 0.5));
+            
+            /*
+             Soft saturation
+             
+             Type : waveshaper
+             References : Posted by Bram de Jong
+             
+             Notes :
+             This only works for positive values of x. a should be in the range 0..1
+            */
+            
+            if (input < testParam)
+            {
+                output = input;
+            }
+            
+            if (input > testParam)
+            {
+                output = testParam + (input - testParam) / (1 + pow(((input - testParam) / (1 - testParam)), 2));
+            }
+            
+                                                            
+            if (input > 1)
+            {
+                (output = testParam + 1) / 2;
+            }
+
             channelData[i] = output / 2.0f ;
         }
     }

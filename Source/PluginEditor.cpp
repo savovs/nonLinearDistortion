@@ -34,7 +34,7 @@ NonLinearAudioProcessorEditor::NonLinearAudioProcessorEditor (NonLinearAudioProc
     //[/Constructor_pre]
 
     addAndMakeVisible (driveSlider = new Slider ("Drive Slider"));
-    driveSlider->setRange (0, 10, 0);
+    driveSlider->setRange (0, 4, 0);
     driveSlider->setSliderStyle (Slider::LinearHorizontal);
     driveSlider->setTextBoxStyle (Slider::TextBoxLeft, false, 80, 20);
     driveSlider->addListener (this);
@@ -46,6 +46,20 @@ NonLinearAudioProcessorEditor::NonLinearAudioProcessorEditor (NonLinearAudioProc
     driveLabel->setEditable (false, false, false);
     driveLabel->setColour (TextEditor::textColourId, Colours::black);
     driveLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+
+    addAndMakeVisible (testParam = new Slider ("Test Param"));
+    testParam->setRange (0, 1, 0);
+    testParam->setSliderStyle (Slider::LinearHorizontal);
+    testParam->setTextBoxStyle (Slider::TextBoxLeft, false, 80, 20);
+    testParam->addListener (this);
+
+    addAndMakeVisible (testParamLabel = new Label ("Test Param Label",
+                                                   TRANS("Test Param Between 0 and 1")));
+    testParamLabel->setFont (Font (15.00f, Font::plain));
+    testParamLabel->setJustificationType (Justification::centredLeft);
+    testParamLabel->setEditable (false, false, false);
+    testParamLabel->setColour (TextEditor::textColourId, Colours::black);
+    testParamLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
 
     //[UserPreSize]
@@ -66,6 +80,8 @@ NonLinearAudioProcessorEditor::~NonLinearAudioProcessorEditor()
 
     driveSlider = nullptr;
     driveLabel = nullptr;
+    testParam = nullptr;
+    testParamLabel = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -91,6 +107,8 @@ void NonLinearAudioProcessorEditor::resized()
 
     driveSlider->setBounds (40, 104, 150, 24);
     driveLabel->setBounds (40, 72, 150, 24);
+    testParam->setBounds (40, 184, 150, 24);
+    testParamLabel->setBounds (40, 152, 150, 24);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -104,8 +122,15 @@ void NonLinearAudioProcessorEditor::sliderValueChanged (Slider* sliderThatWasMov
     {
         //[UserSliderCode_driveSlider] -- add your slider handling code here..
         processor.drive = sliderThatWasMoved->getValue();
-        
+
         //[/UserSliderCode_driveSlider]
+    }
+    else if (sliderThatWasMoved == testParam)
+    {
+        //[UserSliderCode_testParam] -- add your slider handling code here..
+        processor.testParam = sliderThatWasMoved->getValue();
+        
+        //[/UserSliderCode_testParam]
     }
 
     //[UsersliderValueChanged_Post]
@@ -140,7 +165,7 @@ BEGIN_JUCER_METADATA
   <BACKGROUND backgroundColour="ffffffff"/>
   <SLIDER name="Drive Slider" id="cd1e7aac30dd2450" memberName="driveSlider"
           virtualName="" explicitFocusOrder="0" pos="40 104 150 24" min="0"
-          max="10" int="0" style="LinearHorizontal" textBoxPos="TextBoxLeft"
+          max="4" int="0" style="LinearHorizontal" textBoxPos="TextBoxLeft"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"
           needsCallback="1"/>
   <LABEL name="Drive Label" id="8da7aa3b5dc5fc4f" memberName="driveLabel"
@@ -148,6 +173,16 @@ BEGIN_JUCER_METADATA
          edBkgCol="0" labelText="Drive&#10;" editableSingleClick="0" editableDoubleClick="0"
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
          bold="0" italic="0" justification="33"/>
+  <SLIDER name="Test Param" id="42db539c5c9b55bd" memberName="testParam"
+          virtualName="" explicitFocusOrder="0" pos="40 184 150 24" min="0"
+          max="1" int="0" style="LinearHorizontal" textBoxPos="TextBoxLeft"
+          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"
+          needsCallback="1"/>
+  <LABEL name="Test Param Label" id="d7e390049ec09864" memberName="testParamLabel"
+         virtualName="" explicitFocusOrder="0" pos="40 152 150 24" edTextCol="ff000000"
+         edBkgCol="0" labelText="Test Param Between 0 and 1" editableSingleClick="0"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
+         fontsize="15" bold="0" italic="0" justification="33"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA

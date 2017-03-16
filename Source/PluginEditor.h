@@ -63,6 +63,8 @@ private:
     //==============================================================================
     ScopedPointer<Slider> driveSlider;
     ScopedPointer<Label> driveLabel;
+    ScopedPointer<Slider> testParam;
+    ScopedPointer<Label> testParamLabel;
 
 
     //==============================================================================
