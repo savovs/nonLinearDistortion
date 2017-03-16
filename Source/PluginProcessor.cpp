@@ -176,6 +176,12 @@ void NonLinearAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffe
                 (output = testParam + 1) / 2;
             }
 
+            
+            // http://musicdsp.org/showone.php?id=104
+//            // Clipping, not so cool thing
+//            float sign = (input < 0) ? -1 : (input > 0);
+//            output = sign * pow(atan (pow (abs(input), drive)), (1 / drive));
+            
             channelData[i] = output / 2.0f ;
         }
     }
