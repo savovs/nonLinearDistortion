@@ -128,6 +128,7 @@ void NonLinearAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffe
     
     float input = 0.0f;
     float output = 0.0f;
+    float drive = 2.0f;
     
     // In case we have more outputs than inputs, this code clears any output
     // channels that didn't contain input data, (because these aren't
@@ -148,16 +149,7 @@ void NonLinearAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffe
         {
             input = channelData[i] * 4.0f;
             
-            if (input > 0)
-            {
-                output = 1.0f - expf(-input);
-            }
-            
-            else
-            {
-                output = - 1.0f + expf(input);
-            }
-            
+            output = (((sqrt(input) - input) * drive) + input) * (1 - ((drive / 4) * 0.5));
             channelData[i] = output / 2.0f ;
         }
     }
