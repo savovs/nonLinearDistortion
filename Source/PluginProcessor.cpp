@@ -10,6 +10,9 @@
 
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
+#include "DistortionFunctions.h"
+
+using namespace DistortionFunctions;
 
 
 //==============================================================================
@@ -140,13 +143,17 @@ void NonLinearAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffe
 
     // This is the place where you'd normally do the guts of your plugin's
     // audio processing...
-    for (int channel = 0; channel < totalNumInputChannels; ++channel)
+    
+    // Stereo for now
+    for (int channel = 0; channel < 2; ++channel)
     {
         float* channelData = buffer.getWritePointer (channel);
         
         for (int i = 0; i < buffer.getNumSamples(); i++)
         {
-            input = channelData[i] * 4.0f;
+            input = channelData[i];
+            
+            output = distortionTwo(input);
             
 //            output = (((sqrt(input) - input) * drive) + input) * (1 - ((drive / 4) * 0.5));
             
@@ -160,21 +167,21 @@ void NonLinearAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffe
              This only works for positive values of x. a should be in the range 0..1
             */
             
-            if (input < testParam)
-            {
-                output = input;
-            }
-            
-            if (input > testParam)
-            {
-                output = testParam + (input - testParam) / (1 + pow(((input - testParam) / (1 - testParam)), 2));
-            }
-            
-                                                            
-            if (input > 1)
-            {
-                (output = testParam + 1) / 2;
-            }
+//            if (input < testParam)
+//            {
+//                output = input;
+//            }
+//            
+//            if (input > testParam)
+//            {
+//                output = testParam + (input - testParam) / (1 + pow(((input - testParam) / (1 - testParam)), 2));
+//            }
+//            
+//                                                            
+//            if (input > 1)
+//            {
+//                (output = testParam + 1) / 2;
+//            }
 
             
             // http://musicdsp.org/showone.php?id=104
@@ -182,7 +189,7 @@ void NonLinearAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffe
 //            float sign = (input < 0) ? -1 : (input > 0);
 //            output = sign * pow(atan (pow (abs(input), drive)), (1 / drive));
             
-            channelData[i] = output / 2.0f ;
+            channelData[i] = output;
         }
     }
 }
