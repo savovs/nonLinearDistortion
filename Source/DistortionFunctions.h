@@ -11,7 +11,6 @@
 #ifndef DISTORTIONFUNCTIONS_H_INCLUDED
 #define DISTORTIONFUNCTIONS_H_INCLUDED
 
-
 namespace DistortionFunctions {
     float distortionOne(float signal);
     float distortionTwo(float signal);
