@@ -151,44 +151,10 @@ void NonLinearAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffe
         
         for (int i = 0; i < buffer.getNumSamples(); i++)
         {
+            // TODO select a distortion function from DistortionFunctions namespace
             input = channelData[i];
             
             output = distortionTwo(input);
-            
-//            output = (((sqrt(input) - input) * drive) + input) * (1 - ((drive / 4) * 0.5));
-            
-            /*
-             Soft saturation
-             
-             Type : waveshaper
-             References : Posted by Bram de Jong
-             
-             Notes :
-             This only works for positive values of x. a should be in the range 0..1
-            */
-            
-//            if (input < testParam)
-//            {
-//                output = input;
-//            }
-//            
-//            if (input > testParam)
-//            {
-//                output = testParam + (input - testParam) / (1 + pow(((input - testParam) / (1 - testParam)), 2));
-//            }
-//            
-//                                                            
-//            if (input > 1)
-//            {
-//                (output = testParam + 1) / 2;
-//            }
-
-            
-            // http://musicdsp.org/showone.php?id=104
-//            // Clipping, not so cool thing
-//            float sign = (input < 0) ? -1 : (input > 0);
-//            output = sign * pow(atan (pow (abs(input), drive)), (1 / drive));
-            
             channelData[i] = output;
         }
     }
